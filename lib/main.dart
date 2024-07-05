@@ -1,19 +1,29 @@
+import 'package:artauct_app/app_routers.dart';
+import 'package:artauct_app/multiple_bloc_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
-  runApp(const MainApp());
+  final AppRouter appRouter = AppRouter();
+
+  runApp(
+    createRepositoryAndBlocProviders(
+      child: MainApp(router: appRouter.router),
+    ),
+  );
 }
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+class MainApp extends StatelessWidget {
+  final GoRouter router;
 
-  @override
-  State<MainApp> createState() => _MainAppState();
-}
+  const MainApp({super.key, required this.router});
 
-class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MaterialApp.router(
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+      routeInformationProvider: router.routeInformationProvider,
+    );
   }
 }
