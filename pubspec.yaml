@@ -7,6 +7,10 @@ environment:
   sdk: '>=3.3.4 <4.0.0'
 
 dependencies:
+  gradient_borders: ^1.0.1
+  flutter_bloc: ^8.1.6
+  shared_preferences: ^2.2.3
+  go_router: ^14.2.0
   flutter:
     sdk: flutter
 
@@ -17,3 +21,16 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Boroto
+      fonts:
+        - asset: assets/fonts/Boroto-Regular.ttf
+        - asset: assets/fonts/Boroto-Bold.ttf
+        - asset: assets/fonts/Boroto-Medium.ttf
+        - asset: assets/fonts/Boroto-SemiBold.ttf
+        - asset: assets/fonts/Boroto-Light.ttf
+  assets:
+    - assets/
+    - assets/icons/
+    - assets/images/
+    - assets/fonts/
