@@ -1,12 +1,11 @@
+import 'package:artauct_app/components/snack_bar.dart';
 import 'package:artauct_app/components/textField.dart';
 import 'package:artauct_app/pages/login_page.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:artauct_app/services/authentication.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
-import 'package:gradient_borders/input_borders/gradient_underline_input_border.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -16,8 +15,39 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+
+  void continueWithGoogle() async {
+    UserCredential? userCredential = await AuthServices().loginWithGoogle();
+    if (userCredential != null && userCredential.user != null) {
+      final router = GoRouter.of(context);
+      router.go('/homepage');
+    } else {
+      showSnackBar(context, 'Failed to login with Google');
+    }
+  }
+
+  void signUpUser() async {
+    String res = await AuthServices().signUpUser(
+        email: emailController.text,
+        name: nameController.text,
+        password: passwordController.text);
+    if (res == "Successfully") {
+      setState(() {
+        isLoading = true;
+      });
+      final router = GoRouter.of(context);
+      router.go('/login');
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      showSnackBar(context, res);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +63,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   Image.asset('assets/images/logo.png', height: 100),
                   const SizedBox(
                       width: 5), // Khoảng cách giữa logo và tên (nếu cần
-                  const Text('Artauct',
-                      style: TextStyle(
-                          fontSize: 35,
-                          fontFamily: 'Boroto',
-                          fontWeight: FontWeight.bold)),
+                  const Text(
+                    'Artauct',
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontFamily: 'Boroto Mono',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ), // Logo của bạn
               const SizedBox(height: 20),
@@ -50,8 +83,14 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 20),
               RoundedTextField(
-                controller: usernameController,
-                labelText: 'Username',
+                controller: nameController,
+                labelText: 'Full name',
+                isPassword: false,
+              ),
+              const SizedBox(height: 20),
+              RoundedTextField(
+                controller: emailController,
+                labelText: 'Email',
                 isPassword: false,
               ),
               const SizedBox(height: 20),
@@ -60,15 +99,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 labelText: 'Password',
                 isPassword: true,
               ),
-              const SizedBox(height: 20),
-              RoundedTextField(
-                controller: passwordController,
-                labelText: 'Repeat Password',
-                isPassword: true,
-              ),
               const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: signUpUser,
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
                       const Color.fromARGB(255, 211, 26, 13), // Màu nền của nút
@@ -120,9 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       color: Colors.white,
                     ),
                     child: OutlinedButton.icon(
-                      onPressed: () {
-                        print('Google Sign In');
-                      },
+                      onPressed: continueWithGoogle,
                       icon: Image.asset(
                         'assets/icons/google_icon.png',
                         height: 30,
