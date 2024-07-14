@@ -5,10 +5,10 @@ class AvatarUser extends StatelessWidget {
   final String? imagePath;
   
   const AvatarUser({
-    Key? key,
+    super.key,
     required this.size,
     this.imagePath,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,6 @@ class AvatarUser extends StatelessWidget {
                 size: size * 0.5,
                 color: Colors.black,
               )
-            
-            
         ),
     );
   }

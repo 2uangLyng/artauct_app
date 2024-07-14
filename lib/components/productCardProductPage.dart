@@ -1,44 +1,42 @@
-import 'package:artauct_app/components/cartIcon.dart';
-import 'package:artauct_app/components/favortitesHeart.dart';
 import 'package:flutter/material.dart';
-class ProductCard extends StatelessWidget {
+import 'package:artauct_app/components/viewDetailButton.dart';
+import 'package:artauct_app/components/cartIcon.dart';
+class Productcardproductpage extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String artist;
   final String price;
   final Color cardColor;
-  const ProductCard({
+  const Productcardproductpage({
     super.key,
     required this.imageUrl,
     required this.title,
     required this.artist,
     required this.price,
-    this.cardColor = const Color.fromARGB(255, 231, 231, 231)
+    this.cardColor = Colors.white,
   });
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      width: 185,
-      height: 430,
+      width: 180,
+      height: 450,
       child: Card(
         color: cardColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(2),
+          borderRadius: BorderRadius.circular(10),
         ),
-        elevation: 5,
-        child: Padding(
-        padding: const EdgeInsets.all(5),
+        elevation: 10,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular( 10)),
               child: Image.network(
                 imageUrl,
                 fit: BoxFit.cover,
-                height: 250,
+                height: 270,
                 width: size.width*0.5,
               ),
             ),
@@ -47,30 +45,27 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
+                  const Padding(padding: EdgeInsets.all(2)),
+                  Text(
                         title,
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 17,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ],
-                  ),
+                  const SizedBox(height: 2),
                   Text(
                     'Artist: $artist',
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 13,
                       color: Colors.black,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   Text(
                     'Price: $price',
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -79,9 +74,19 @@ class ProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const SizedBox(height:10),
-                      const HeartIcon(), 
-                      const SizedBox(width: 40),
-                      CartIcon(onPressed: (){}, size: 40, borderRadius: 30),              
+                      ViewDetailButton(
+                        size: 100,
+                        label: 'View Detail', 
+                        onPressed: () {},
+                        icon: 'https://img.icons8.com/?size=100&id=39777&format=png&color=000000',
+                      ),
+                      const SizedBox(width: 2),
+                      CartIcon(
+                      icon: '', 
+                      onPressed: () {},
+                      size: 40, 
+                      borderRadius: 10,
+                      )
                     ],
                   ),
                 ],
@@ -89,8 +94,7 @@ class ProductCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      ),
+      )
     );
   }
 }
