@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RoundedTextField extends StatelessWidget {
+class RoundedTextField extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   final String? errorText;
@@ -15,13 +15,20 @@ class RoundedTextField extends StatelessWidget {
   });
 
   @override
+  State<RoundedTextField> createState() => _RoundedTextFieldState();
+}
+
+class _RoundedTextFieldState extends State<RoundedTextField> {
+  bool _isPasswordVisible = false;
+
+  @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: controller,
-      obscureText: isPassword,
+      controller: widget.controller,
+      obscureText: widget.isPassword && !_isPasswordVisible,
       decoration: InputDecoration(
-        labelText: labelText,
-        errorText: errorText,
+        labelText: widget.labelText,
+        errorText: widget.errorText,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           borderSide: BorderSide(
@@ -57,7 +64,18 @@ class RoundedTextField extends StatelessWidget {
             width: 2.0,
           ),
         ),
-        suffixIcon: isPassword ? const Icon(Icons.visibility) : null,
+        suffixIcon: widget.isPassword
+            ? IconButton(
+                icon: Icon(
+                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isPasswordVisible = !_isPasswordVisible;
+                  });
+                },
+              )
+            : null,
       ),
     );
   }
