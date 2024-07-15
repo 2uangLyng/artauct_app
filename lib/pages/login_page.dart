@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     UserCredential? userCredential = await AuthServices().loginWithGoogle();
     if (userCredential != null && userCredential.user != null) {
       final router = GoRouter.of(context);
-      router.go('/homepage');
+      router.go('/main-page');
     } else {
       showSnackBar(context, 'Failed to login with Google');
     }
@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
         isLoading = true;
       });
       final router = GoRouter.of(context);
-      router.go('/homepage');
+      router.go('/main-page');
     } else {
       setState(() {
         isLoading = false;
