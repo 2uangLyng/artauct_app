@@ -24,7 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
     UserCredential? userCredential = await AuthServices().loginWithGoogle();
     if (userCredential != null && userCredential.user != null) {
       final router = GoRouter.of(context);
-      router.go('/homepage');
+      router.go('/main-page');
     } else {
       showSnackBar(context, 'Failed to login with Google');
     }

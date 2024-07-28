@@ -1,4 +1,7 @@
+import 'package:artauct_app/main_page.dart';
 import 'package:artauct_app/pages/forgot_password.dart';
+import 'package:artauct_app/pages/get_started_1.dart';
+import 'package:artauct_app/pages/get_started_2.dart';
 import 'package:artauct_app/pages/home_page.dart';
 import 'package:artauct_app/pages/login_page.dart';
 import 'package:artauct_app/pages/signup_page.dart';
@@ -13,11 +16,23 @@ class AppRouter {
     router = GoRouter(
       routes: [
         GoRoute(
+          path: '/',
+          builder: (context, state) => const GetStarted1(),
+        ),
+        GoRoute(
+          path: '/main-page',
+          builder: (context, state) => const MainPage(),
+        ),
+        GoRoute(
+          path: '/get-started-2',
+          builder: (context, state) => const GetStarted2(),
+        ),
+        GoRoute(
           path: '/homepage',
           builder: (context, state) => const HomePage(),
         ),
         GoRoute(
-          path: '/',
+          path: '/signup',
           pageBuilder: (context, state) => CustomTransitionPage(
               key: state.pageKey,
               child: const SignUpPage(),
@@ -39,7 +54,7 @@ class AppRouter {
         GoRoute(
           path: '/login',
           pageBuilder: (context, state) => CustomTransitionPage(
-            transitionDuration: const Duration(seconds: 5),
+            transitionDuration: const Duration(seconds: 3),
             key: state.pageKey,
             child: const LoginPage(),
             transitionsBuilder:
