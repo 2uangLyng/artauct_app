@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.3.4 <4.0.0'
 
 dependencies:
+  circular_bottom_navigation: ^2.4.0
   animations: ^2.0.11
   gradient_borders: ^1.0.1
   flutter_bloc: ^8.1.6
