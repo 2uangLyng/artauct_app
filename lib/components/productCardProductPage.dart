@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:artauct_app/components/viewDetailButton.dart';
 import 'package:artauct_app/components/cartIcon.dart';
@@ -12,7 +13,7 @@ class Productcardproductpage extends StatelessWidget {
     required this.imageUrl,
     required this.title,
     required this.artist,
-    required this.price,
+    required this.price,  
     this.cardColor = Colors.white,
   });
 
