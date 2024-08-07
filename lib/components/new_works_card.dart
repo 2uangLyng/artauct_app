@@ -1,8 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewWorkCard extends StatefulWidget {
-  const NewWorkCard({super.key});
+  final String imageUrl; 
+  final String artistName; 
+  final String artName;
+  final String galleryName; 
+  final String price; 
+
+  const NewWorkCard({
+    super.key,
+    required this.imageUrl,
+    required this.artistName,
+    required this.artName,
+    required this.galleryName,
+    required this.price,
+  });
 
   @override
   State<NewWorkCard> createState() => _NewWorkCardState();
@@ -20,7 +32,7 @@ class _NewWorkCardState extends State<NewWorkCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.95,
+      width: MediaQuery.of(context).size.width * 0.88,
       height: 340,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -28,21 +40,25 @@ class _NewWorkCardState extends State<NewWorkCard> {
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
-            blurRadius: 10,
-            spreadRadius: 5,
+            // blurRadius: 10,
+            // spreadRadius: 5,
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 7),
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+            borderRadius: const BorderRadius.vertical(
+              bottom: Radius.circular(10),
+              top: Radius.circular(10),
+            ),
             child: Image.asset(
-              'assets/images/get-started-2.jpg',
+              widget.imageUrl,
               fit: BoxFit.cover,
-              height: 200,
-              width: double.infinity,
+              height: 220,
+              width: MediaQuery.of(context).size.width * 0.88,
             ),
           ),
           const SizedBox(height: 5),
@@ -54,11 +70,10 @@ class _NewWorkCardState extends State<NewWorkCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Artist Name',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    Text(
+                      widget.artName,
+                      style: const TextStyle(
+                        fontSize: 22,
                       ),
                     ),
                     IconButton(
@@ -66,35 +81,34 @@ class _NewWorkCardState extends State<NewWorkCard> {
                         isFavorite
                             ? Icons.favorite
                             : Icons.favorite_border_outlined,
-                        size: 24,
-                        color: Colors
-                            .black, // Remove isFavorite from constant context
+                        size: 25,
+                        color: const Color.fromARGB(255, 9, 4, 4),
                       ),
                       onPressed: toggleFavorite,
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Art Name',
-                  style: TextStyle(
-                    fontSize: 16,
+                const SizedBox(height: 0),
+                Text(
+                  widget.artistName,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  widget.galleryName,
+                  style: const TextStyle(
+                    fontSize: 15,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Gallery Name',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Price',
-                  style: TextStyle(
-                    fontSize: 20,
+                Text(
+                  widget.price,
+                  style: const TextStyle(
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
